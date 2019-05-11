@@ -4,8 +4,8 @@ import scrapy
 
 class QuotesSpiderSpider(scrapy.Spider):
     name = 'quotes_spider'
-    allowed_domains = ['http://quotes.toscrape.com/']
-    start_urls = ['http://quotes.toscrape.com/']
+    allowed_domains = ['quotes.toscrape.com']
+    start_urls = ['http://quotes.toscrape.com']
 
     def parse(self, response):
     #    h1_tag = response.xpath('//h1/a/text()').extract_first()
@@ -23,4 +23,5 @@ class QuotesSpiderSpider(scrapy.Spider):
             print(tags)
         next_page_url = response.xpath('//*[@class="next"]/a/@href').extract_first()
         absolute_next_page_url = response.urljoin(next_page_url)
+        #print(scrapy.Request(absolute_next_page_url))
         yield scrapy.Request(absolute_next_page_url)
